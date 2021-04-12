@@ -1,0 +1,21 @@
+= README
+
+== Πρώτο βήμα
+Στο επόμενο λινκ, https://git.swarmlab.io:3000/JohnKampe/Projects.git, στον φάκελο IoT_Project βρίσκονται τα έγγραφα του Project. Με την επόμενη εντολή εγκαθηστούμε το Project στον υπολογιστη.
+
+$ git clone https://git.swarmlab.io:3000/JohnKampe/Projects.git
+
+== Δεύτερο βήμα
+Αρχικά εκτελείται ο server πληκτρολογώντας την εξής εντολή.
+
+$ node index.js
+
+== Τρίτο βήμα
+Έπειτα εκτελείται το πρόγραμμα python.
+
+$ python3 raspberry_pi_code.py
+
+== Τέταρτο βήμα
+Ανοίγουμε τον browser και πληκτρολογούμε το παρακάτω ώστε να φανούν τα αποτελέσματα.
+
+$ localhost:3000

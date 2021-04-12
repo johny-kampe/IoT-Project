@@ -1,0 +1,64 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Raspberry Pi Measures</title>
+	  <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+		<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+		<script src="/socket.io/socket.io.js"></script> 
+  </head>
+
+  <body>
+		<div id="myDiv"></div> <!-- Presenting the graph at localhost:3000/ -->
+		<script>
+			const socket = io(); //connecting with server
+	
+			var data = []; //initializing list data, we will put the 
+										 //different traces (trace0, trace1, trace2, trace3) in order to plot them
+
+			var trace0 = {}; //trace of temperature	
+			var trace1 = {}; //trace of air humidity
+			var trace2 = {}; //trace of ground humidity	
+			var trace3 = {};	//trace of beaufort	
+
+			socket.on('graph', (value) => { //on event with name 'graph' get the values from the server 
+				if(value[10] == 0){ //if the id = 0 then it's temperature values
+					trace0 = { //update the trace of temperature 
+						x: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+						y: [value[0],value[1],value[2],value[3],value[4],value[5],value[6],value[7],value[8],value[9]],
+						type: 'scatter',
+						mode: 'lines',
+						name: 'Temperature'
+					};	
+				}	else if(value[10] == 1){ //if the id = 1 then it's air humidity values
+					trace1 = { //update the trace of air humidity 
+						x: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+						y: [value[0],value[1],value[2],value[3],value[4],value[5],value[6],value[7],value[8],value[9]],
+						type: 'scatter',
+						mode: 'lines',
+						name: 'Air humidity'
+					};
+				}else if(value[10] == 2){ //if the id = 2 then it's ground humidity values
+					trace2 = { //update the trace of ground humidity
+						x: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+						y: [value[0],value[1],value[2],value[3],value[4],value[5],value[6],value[7],value[8],value[9]],
+						type: 'scatter',
+						mode: 'lines',
+						name: 'Ground humidity'
+					};
+				}else if(value[10] == 3){ //if the id = 3 then it's beaufort values
+					trace3 = { //update the trace of beaufort
+						x: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+						y: [value[0],value[1],value[2],value[3],value[4],value[5],value[6],value[7],value[8],value[9]],
+						type: 'scatter',
+						mode: 'lines',
+						name: 'Beaufort'
+					};
+				}
+				data = [trace0, trace1, trace2, trace3]; //inserting in list data the traces
+				console.log(data); //printing the traces for debugging reasons
+				Plotly.newPlot('myDiv', data); //plotting the traces
+			});
+			</script>
+		</body>
+</html>
+
